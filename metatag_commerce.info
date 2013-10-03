@@ -1,5 +1,5 @@
-name = Metatag Commerce
-description = Provides commerce-related metatags for the Metatag module.
+name = Metatag: Commerce
+description = Provides commerce-related meta tags for the Metatag module.
 package = SEO
 core = 7.x
 dependencies[] = metatag

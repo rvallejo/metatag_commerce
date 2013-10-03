@@ -1,9 +1,34 @@
 <?php
 
+/**
+ * @file
+ * Product meta tags for Open Graph and Twitter Card protocards.
+ * 
+ * Provides product-related meta tag options for Metatag: Open Graph and 
+ * Metatag: Twitter Cards modules.
+ */
 
-//
-// Implements hook_metatag_config_default_alter().
-//
+/**
+ * Implements hook_metatag_config_default().
+ */
+function metatag_commerce_metatag_config_default() {
+  $configs = array();
+
+  if (module_exists('commerce')) {
+    $config = new stdClass();
+    $config->instance = 'node:product_display';
+    $config->api_version = 1;
+    $config->disabled = FALSE;
+    $config->config = array();
+    $configs[$config->instance] = $config;
+  }
+
+  return $configs;
+}
+
+/**
+ * Implements hook_metatag_config_default_alter().
+ */
 function metatag_commerce_metatag_config_default_alter(array &$configs) {
   foreach ($configs as &$config) {
     switch ($config->instance) {
@@ -19,23 +44,24 @@ function metatag_commerce_metatag_config_default_alter(array &$configs) {
         $config->config += array();
         break;
  
-      case 'node:product_display':
-        if (module_exists('metatag_opengraph')) {
-              $config->config += array(
-            'og:type' => array('value' => 'product'),
-            'product:price:amount' => array('value' => '[node:field-products:0:commerce-price:amount_decimal]'),
-            'product:price:currency' => array('value' => '[node:field-products:0:commerce-price:currency_code]'),
-            'product:retailer_part_no' => array('value' => '[node:field-products:0:sku]'),
-          );
-        }
-        if (module_exists('metatag_twitter_cards')) {
-          $config->config += array(
-            'twitter:card' => array('value' => 'product'),
-            'twitter:data1' => array('value' => '[node:field-products:0:commerce-price:amount_decimal]'),
-            'twitter:label1' => array('value' => '[node:field-products:0:commerce-price:currency_code]'),
-          );
-        }
-        break;
+        case 'node:product_display':
+          if (module_exists('metatag_opengraph')) {
+            $config->config += array(
+              'og:type' => array('value' => 'product'),
+              'product:price:amount' => array('value' => '[node:field-products:0:commerce-price:amount_decimal]'),
+              'product:price:currency' => array('value' => '[node:field-products:0:commerce-price:currency_code]'),
+              'product:retailer_part_no' => array('value' => '[node:field-products:0:sku]'),
+            );
+          }
+          if (module_exists('metatag_twitter_cards')) {
+            $config->config += array(
+              'twitter:card' => array('value' => 'product'),
+              'twitter:data1' => array('value' => '[node:field-products:0:commerce-price:amount_decimal]'),
+              'twitter:label1' => array('value' => '[node:field-products:0:commerce-price:currency_code]'),
+            );
+          }
+          break;
+      
  
       case 'taxonomy_term':
         $config->config += array();

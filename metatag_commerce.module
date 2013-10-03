@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Provides product meta tags for Metatag Open Graph and Metatag Twitter Cards.
+ * Provides product meta tags for Metatag: Open Graph and Metatag: Twitter Cards.
  *
  * Provides additional, generic product-related meta tags for the Metatag submodules.
  * Will eventually include integration with Drupal Commerce entities.
@@ -11,7 +11,7 @@
 /** 
  * This module includes code originally supplied by fiftyz in a separate 
  * stand-alone module to fix the formatting of multiple-value image fields
- * for Metatag Open Graph submodule. (https://drupal.org/node/1305402#comment-6420040)
+ * for Metatag: Open Graph submodule. (https://drupal.org/node/1305402#comment-6420040)
  */
 
 /**
