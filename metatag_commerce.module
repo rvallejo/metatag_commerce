@@ -83,3 +83,22 @@ function metatag_commerce_metatag_info_alter(&$info) {
   $info['tags']['og:image']['element']['#theme'] = 'metatag_commerce_opengraph_img';
   $info['tags']['twitter:image']['element']['#theme'] = 'metatag_commerce_twitter_img';
 }
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * Enables Metatag support for the Commerce entities.
+ */
+function metatag_commerce_entity_info_alter(&$info) {
+  if (module_exists('commerce_product')) {
+    $defaults['commerce_product'] = array(
+	  'metatags' => TRUE,
+	);
+  }
+
+  foreach ($defaults as $key => $entity_defaults) {
+    if (isset($info[$key])) {
+      $info[$key] = drupal_array_merge_deep($entity_defaults, $info[$key]);
+    }
+  }
+}
