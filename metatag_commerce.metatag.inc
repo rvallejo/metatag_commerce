@@ -14,9 +14,9 @@
 function metatag_commerce_metatag_config_default() {
   $configs = array();
 
-  if (module_exists('commerce')) {
+  if (module_exists('commerce_product')) {
     $config = new stdClass();
-    $config->instance = 'node:product_display';
+    $config->instance = 'commerce_product';
     $config->api_version = 1;
     $config->disabled = FALSE;
     $config->config = array();
@@ -32,19 +32,8 @@ function metatag_commerce_metatag_config_default() {
 function metatag_commerce_metatag_config_default_alter(array &$configs) {
   foreach ($configs as &$config) {
     switch ($config->instance) {
-      case 'global':
-        $config->config += array();
-        break;
  
-      case 'global:frontpage':
-        $config->config += array();
-        break;
-
-      case 'node':
-        $config->config += array();
-        break;
- 
-        case 'node:product_display':
+        case 'commerce_product':
           if (module_exists('metatag_opengraph')) {
             $config->config += array(
               'og:type' => array('value' => 'product'),
@@ -61,15 +50,7 @@ function metatag_commerce_metatag_config_default_alter(array &$configs) {
             );
           }
           break;
-      
- 
-      case 'taxonomy_term':
-        $config->config += array();
-        break;
- 
-      case 'user':
-        $config->config += array( );
-        break;
+
     }
   }
 }
@@ -107,7 +88,7 @@ function metatag_commerce_metatag_info() {
     );
     $info['tags']['product:availability'] = array(
       'label' => t('Availability'),
-      'description' => 'Case insensitive string, possible values: "in stock", "instock", "preorder", "backorder", "pending", "out of stock", "oos", "discontinued".',
+      'description' => 'Case insensitive string, possible values: "instock", "pending", "oos" per https://developers.facebook.com/docs/reference/opengraph/object-type/product.',
       'class' => 'DrupalTextMetaTag',
       'group' => 'metatag-commerce-og',
       'element' => array(

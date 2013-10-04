@@ -5,10 +5,7 @@
  *
  * Provides additional, generic product-related meta tags for the Metatag submodules.
  * Will eventually include integration with Drupal Commerce entities.
- */
-
-
-/** 
+ * 
  * This module includes code originally supplied by fiftyz in a separate 
  * stand-alone module to fix the formatting of multiple-value image fields
  * for Metatag: Open Graph submodule. (https://drupal.org/node/1305402#comment-6420040)
@@ -20,6 +17,17 @@
 function metatag_commerce_ctools_plugin_api($owner, $api) {
   if ($owner == 'metatag' && $api == 'metatag') {
     return array('version' => 1);
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * Enables Metatag support for the Commerce entities.
+ */
+function metatag_commerce_entity_info_alter(&$entity_info) {
+  if (module_exists('commerce_product')) {
+    $entity_info['commerce_product']['metatags'] = TRUE;
   }
 }
 
